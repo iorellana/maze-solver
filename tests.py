@@ -1,50 +1,35 @@
-from graphics import Line, Point
+import unittest
+
+from maze import Maze
 
 
-class Cell:
-    def __init__(self, win=None):
-        self.has_left_wall = True
-        self.has_right_wall = True
-        self.has_top_wall = True
-        self.has_bottom_wall = True
-        self._x1 = None
-        self._x2 = None
-        self._y1 = None
-        self._y2 = None
-        self._win = win
+class Tests(unittest.TestCase):
+    def test_maze_create_cells(self):
+        num_cols = 12
+        num_rows = 10
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        self.assertEqual(
+            len(m1._cells),
+            num_cols,
+        )
+        self.assertEqual(
+            len(m1._cells[0]),
+            num_rows,
+        )
 
-    def draw(self, x1, y1, x2, y2):
-        if self._win is None:
-            return
-        self._x1 = x1
-        self._x2 = x2
-        self._y1 = y1
-        self._y2 = y2
-        if self.has_left_wall:
-            line = Line(Point(x1, y1), Point(x1, y2))
-            self._win.draw_line(line)
-        if self.has_top_wall:
-            line = Line(Point(x1, y1), Point(x2, y1))
-            self._win.draw_line(line)
-        if self.has_right_wall:
-            line = Line(Point(x2, y1), Point(x2, y2))
-            self._win.draw_line(line)
-        if self.has_bottom_wall:
-            line = Line(Point(x1, y2), Point(x2, y2))
-            self._win.draw_line(line)
+    def test_maze_create_cells_large(self):
+        num_cols = 16
+        num_rows = 12
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        self.assertEqual(
+            len(m1._cells),
+            num_cols,
+        )
+        self.assertEqual(
+            len(m1._cells[0]),
+            num_rows,
+        )
 
-    def draw_move(self, to_cell, undo=False):
-        half_length = abs(self._x2 - self._x1) // 2
-        x_center = half_length + self._x1
-        y_center = half_length + self._y1
 
-        half_length2 = abs(to_cell._x2 - to_cell._x1) // 2
-        x_center2 = half_length2 + to_cell._x1
-        y_center2 = half_length2 + to_cell._y1
-
-        fill_color = "red"
-        if undo:
-            fill_color = "gray"
-
-        line = Line(Point(x_center, y_center), Point(x_center2, y_center2))
-        self._win.draw_line(line, fill_color)
+if __name__ == "__main__":
+    unittest.main()
