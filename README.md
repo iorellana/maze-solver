@@ -30,3 +30,9 @@ To solve a maze, run the following command:
 ```shell
 python main.py
 ```
+
+if you want to use a specific random seed, you can pass it as an argument:
+
+```shell
+python main.py --seed 123
+```

@@ -4,6 +4,20 @@ import time
 
 
 class Maze:
+    """
+    Represents a maze.
+    Args:
+        x1 (int): The x-coordinate of the top-left corner of the maze.
+        y1 (int): The y-coordinate of the top-left corner of the maze.
+        num_rows (int): The number of rows in the maze.
+        num_cols (int): The number of columns in the maze.
+        cell_size_x (int): The width of each cell in the maze.
+        cell_size_y (int): The height of each cell in the maze.
+        win (object, optional): The window object to draw the maze on. Defaults to None.
+        rnd_seed (int, optional): The random seed to use for generating the maze. Defaults to None.
+    Methods:
+        solve(): Solves the maze.
+    """
     def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win=None, rnd_seed=None):
         self._cells = []
         self._x1 = x1
@@ -60,16 +74,6 @@ class Maze:
                 self._cells[i][j].draw_move(self._cells[i][j + 1], True)
         return False
 
-
-
-
-
-
-
-
-
-
-
     def _reset_cells_visited(self):
         for i in range(self._num_cols):
             for j in range(self._num_rows):
@@ -99,7 +103,7 @@ class Maze:
         if self._win is None:
             return
         self._win.redraw()
-        time.sleep(0.02)
+        time.sleep(0.01)
 
     def _break_entrance_and_exit(self):
         self._cells[0][0].has_top_wall = False
